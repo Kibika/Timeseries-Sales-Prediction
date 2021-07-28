@@ -1,0 +1,2 @@
+This project looks at the dataset for a store which contains sales made in the past and characteristics of different stores.
+The project uses this information to enable prediction of sales for the different stores. Time series techniques are used to make the predictions
