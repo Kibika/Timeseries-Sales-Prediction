@@ -1,0 +1,134 @@
+<div class="main-content">
+
+    {#    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main"#}
+    {#         style="background: #454548;height: 50px">#}
+    {#        <div class="container-fluid">#}
+    {#            <!-- Brand -->#}
+    {#            <p class="h4 mb-0 text-uppercase d-none d-lg-inline-block" style="color: #454548">Dashboard</p>#}
+    {#            <!-- Form -->#}
+    {#            {% if not current_user.admin %}#}
+    {#                <a href='#' class="nav-item" style="width: 100%" data-toggle="modal" data-target="#walletModal">#}
+    {#                    <i class="fa fa-wallet"></i>#}
+    {#                    <span>Wallet</span>#}
+    {#                </a>#}
+    {#            {% endif %}#}
+    {#            <!-- User -->#}
+    {#            {% include 'includes/user-dropdown.html' %}#}
+    {##}
+    {#        </div>#}
+    {#    </nav>#}
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-default" id="navbar-main"
+         style="background: #454548 !important; height: 50px; position: fixed;
+    width: calc(100% - 250px);
+    z-index: 999;
+    right: 0;">
+        <div class="container">
+            {#            <a class="navbar-brand" href="#">Default Color</a>#}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-default"
+                    aria-controls="navbar-default" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-default">
+                <div class="navbar-collapse-header">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="javascript:void(0)">
+                                <img src="/static/logo.png"
+                                     sstyle="max-width: 100%;max-height: 100%;position: relative;right: 40px;">
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <button type="button" class="navbar-toggler" data-toggle="collapse"
+                                    data-target="#navbar-default" aria-controls="navbar-default" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="navbar-nav ml-lg-auto my-auto">
+                    {#                    <li class="nav-item">#}
+                    {#                        <a class="nav-link nav-link-icon" href="#">#}
+                    {#                            <i class="ni ni-favourite-28"></i>#}
+                    {#                            <span class="nav-link-inner--text d-lg-none">Discover</span>#}
+                    {#                        </a>#}
+                    {#                    </li>#}
+                    <li class="nav-item my-auto" title="
+                            {{ 'Wallet not provisioned' if not current_user.wallet else 'Wallet' if (current_user.wallet.balance > 75) else 'Wallet balance below recommended' }}">
+                        <a class="nav-link nav-link-icon" style="color:
+                                {{ 'grey' if not current_user.wallet else 'deepskyblue' if (current_user.wallet.balance > 75) else 'darkorange' }}"
+                           href="#walletModal" data-toggle="modal">
+                            <i class="fa fa-wallet"></i>
+                            <span class="nav-link-inner--text d-lg-none">Wallet</span>
+                        </a>
+                    </li>
+                    {#                    <li class="nav-item dropdown my-auto">#}
+                    {#                        <a class="nav-link nav-link-icon" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                    {#                            <i class="ni ni-settings-gear-65"></i>#}
+                    {#                            <span class="nav-link-inner--text d-lg-none">Settings</span>#}
+                    {#                        </a>#}
+                    {#                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">#}
+                    {#                            <a class="dropdown-item" href="#">Action</a>#}
+                    {#                            <a class="dropdown-item" href="#">Another action</a>#}
+                    {#                            <div class="dropdown-divider"></div>#}
+                    {#                            <a class="dropdown-item" href="#">Something else here</a>#}
+                    {#                        </div>#}
+                    {##}
+                    {#                    </li>#}
+                    {% include 'includes/user-dropdown.html' %}
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+            <div id="toastr" aria-live="polite" aria-atomic="true"
+                 style="position: absolute; top:60px; right: 20px; max-width:400px; background: orange; color: white; z-index: 999;">
+                <div class="toast p-1 px-3">
+                    <div class="toast-header">
+                    </div>
+                    <div class="toast-body">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="walletModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Wallet</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% if current_user.wallets.count() %}
+                    Type: {{ current_user.wallets[0].type }} <br>
+                    Balance: {{ current_user.wallets[0].balance }}
+                {% else %}
+                    No wallet available. <br>Please contact the
+                    <a target="_blank" href="mailto:revlytics@gmail.com">Admin</a> to provision one for you.
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                {#        <button type="button" class="btn btn-primary">Save changes</button>#}
+            </div>
+        </div>
+    </div>
+</div>

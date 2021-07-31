@@ -1,0 +1,4 @@
+artifact_location: file:///D:/Stella/Documents/10_Academy/Week_3/sales_prediction/mlruns/1
+experiment_id: '1'
+lifecycle_stage: active
+name: abtest
