@@ -9,7 +9,7 @@ def init_app():
 
     with app.app_context():
         # Import parts of our core Flask app
-        from . import routes
+        from apps import routes
 
         # Import Dash application
         from apps.dashboard.dashboard import init_dashboard
