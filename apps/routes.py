@@ -10,3 +10,7 @@ def upload_csv():
 @app.route("/sales_prediction")
 def sales_prediction():
     return render_template("public/default.html",content="prediction_layout.html", title='Dashboard | Sales Prediction')
+
+@app.route("/")
+def home_view():
+        return render_template("upload_csv.html")
