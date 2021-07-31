@@ -1,0 +1,24 @@
+name: salespred
+on: [push]
+jobs:
+  run:
+    runs-on: [windows-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: iterative/setup-cml@v1
+      - name: cml
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install -r requirements.txt
+          python train_model.py
+
+          echo "## Model metrics" > report.md
+
+
+          echo "## Data viz" >> report.md
+          cml-publish model_loss.png --md >> report.md
+          cml-publish actualvspred.png --md >> report.md
+
+          cml-send-comment report.md
