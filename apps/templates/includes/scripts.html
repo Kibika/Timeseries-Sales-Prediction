@@ -1,0 +1,60 @@
+<!-- Argon Scripts -->
+<!-- Core -->
+<script src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Optional JS -->
+<script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+<!-- Argon JS -->
+<script src="/static/assets/js/argon.js?v=1.0.0"></script>
+
+<script src="{{ url_for('static', filename='vendor/bootstrap-table/bootstrap-table.min.js') }}"></script>
+
+{{ moment.include_moment(local_js='/static/js/moment.min.js') }}
+
+<script type="text/javascript">
+
+    var $table = $('#table');
+    var $button = $('#button');
+
+    $(function () {
+        $("#{{ request.endpoint.split('.')[1] }}").addClass("active");
+        $(".link-{{ request.endpoint.split('.')[1] }}").addClass("active");
+
+        window.setTimeout("document.getElementById('toastr').style.display='none';", 5000);
+
+        $button.click(function () {
+            rows = $table.bootstrapTable('getSelections');
+
+            if (rows.length < 2)
+                return alert("Select statements to combine");
+
+            ids = rows.map((v, i, a) => {
+                return v.id
+            });
+
+            document.getElementById('loader').className = 'active';
+            $.ajax({
+                type: "POST",
+                url: "/combined/process",
+                data: JSON.stringify({ids: ids}),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+
+                    if (data.success)
+                        window.location.href = '/overview';
+                    else if (data.msg)
+                        alert(data.msg)
+                },
+                error: function (e) {
+                    alert('There was a problem processing the request, please try again.')
+
+                },
+                complete: function () {
+                    document.getElementById('loader').className = 'inactive';
+                }
+            });
+        })
+    })
+</script>

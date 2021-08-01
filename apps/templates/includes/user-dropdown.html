@@ -1,0 +1,63 @@
+<!-- User -->
+{#<ul class="navbar-nav align-items-center d-none d-md-flex">#}
+<li class="nav-item dropdown">
+    <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false">
+        <div class="media align-items-center">
+                <span class="avatar avatar-sm rounded-circle">
+                <i class="ni ni-single-02"></i>
+                </span>
+            <div class="media-body ml-2 d-none d-lg-block">
+                <span class="mb-0 text-sm text-uppercase font-weight-bold">{{ current_user.username }}</span>
+            </div>
+        </div>
+    </a>
+    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+        <div class=" dropdown-header noti-title">
+            <h6 class="text-overflow m-0">Welcome!</h6>
+        </div>
+        {% if current_user.admin %}
+            <a href={{ url_for('admin.index') }} class="dropdown-item" style="width: 100%">
+                <i class="fa fa-user-secret"></i>
+                <span>Admin Dashboard</span>
+            </a>
+        {% endif %}
+
+        {#        {% if not current_user.admin %}#}
+        <a href='{{ url_for('user.wallet_view') }}' class="dropdown-item" style="width: 100%">
+            <i class="fa fa-wallet"></i>
+            <span>My Wallet</span>
+        </a>
+        {#        {% endif %}#}
+
+        <div class="dropdown-divider"></div>
+        <a href={{ url_for('auth.logout') }} class="dropdown-item" style="width: 100%">
+            <i class="ni ni-user-run"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</li>
+{#</ul>#}
+
+{#<!-- Modal -->#}
+{#<div class="modal fade" id="walletModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#  <div class="modal-dialog" role="document">#}
+{#    <div class="modal-content">#}
+{#      <div class="modal-header">#}
+{#        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>#}
+{#        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#          <span aria-hidden="true">&times;</span>#}
+{#        </button>#}
+{#      </div>#}
+{#      <div class="modal-body">#}
+{#        ...#}
+{#      </div>#}
+{#      <div class="modal-footer">#}
+{#        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+{#        <button type="button" class="btn btn-primary">Save changes</button>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+
+

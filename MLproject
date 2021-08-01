@@ -1,0 +1,12 @@
+name: docker-salespred
+
+docker_env:
+  image:  mlflow-docker-salespred
+
+entry_points:
+  main:
+    parameters:
+      epochs: {type: int, default: 10}
+      steps_per_epoch: {type: int, default: 5}
+
+     command: "train_model.py --epochs {epochs} --steps_per_epoch {steps_per_epoch}"

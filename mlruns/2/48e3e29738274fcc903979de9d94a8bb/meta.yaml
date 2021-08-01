@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Stella/Documents/10_Academy/Week_3/sales_prediction/mlruns/2/48e3e29738274fcc903979de9d94a8bb/artifacts
+end_time: 1627679543079
+entry_point_name: ''
+experiment_id: '2'
+lifecycle_stage: active
+name: ''
+run_id: 48e3e29738274fcc903979de9d94a8bb
+run_uuid: 48e3e29738274fcc903979de9d94a8bb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1627679539801
+status: 3
+tags: []
+user_id: Stella
